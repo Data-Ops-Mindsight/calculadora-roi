@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de ROI - Sistema de RH</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="20" cy="20" r="18" fill="#0a2c4e" />
+              <path d="M20 8L26 14H23V22H17V14H14L20 8Z" fill="white" />
+              <path d="M14 24H26V26H14V24Z" fill="white" />
+              <path d="M16 28H24V30H16V28Z" fill="white" />
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h1>RH Analytics Pro</h1>
+            <span>Calculadora de ROI</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero">
+          <h2>Calcule o ROI do seu Sistema de RH</h2>
+          <p>
+            Descubra quanto sua empresa pode economizar reduzindo o turnover com
+            tecnologia especializada
+          </p>
+        </section>
+
+        <div class="calculator-grid">
+          <section class="inputs-section">
+            <div class="card">
+              <h3>Dados da Empresa</h3>
+              <form id="calculadoraForm">
+                <div class="input-group">
+                  <label for="salarioMensal">Salário Médio Mensal (R$)</label>
+                  <input
+                    type="number"
+                    id="salarioMensal"
+                    placeholder="5.000"
+                    min="0"
+                    step="100"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="totalColaboradores"
+                    >Total de Colaboradores na Empresa</label
+                  >
+                  <input
+                    type="number"
+                    id="totalColaboradores"
+                    placeholder="50"
+                    min="1"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="totalDesligamentos"
+                    >Total de Desligamentos no Último Ano</label
+                  >
+                  <input
+                    type="number"
+                    id="totalDesligamentos"
+                    placeholder="10"
+                    min="0"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="custoSistema"
+                    >Custo do Sistema de RH por Ano (R$)</label
+                  >
+                  <input
+                    type="number"
+                    id="custoSistema"
+                    placeholder="24.000"
+                    min="0"
+                    step="1000"
+                    required
+                  />
+                </div>
+              </form>
+            </div>
+
+            <div class="card">
+              <h3>Parâmetros de Custo</h3>
+              <div class="parameters-grid">
+                <div class="input-group">
+                  <label for="multiplicadorEncargos"
+                    >Multiplicador de Encargos</label
+                  >
+                  <input
+                    type="number"
+                    id="multiplicadorEncargos"
+                    value="1.67"
+                    min="1"
+                    max="3"
+                    step="0.01"
+                  />
+                  <small>Custo total sobre salário base</small>
+                </div>
+
+                <div class="input-group">
+                  <label for="custoHoraRH">Custo Hora RH (R$)</label>
+                  <input
+                    type="number"
+                    id="custoHoraRH"
+                    value="100"
+                    min="0"
+                    step="10"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="custoHoraGerente">Custo Hora Gerente (R$)</label>
+                  <input
+                    type="number"
+                    id="custoHoraGerente"
+                    value="150"
+                    min="0"
+                    step="10"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="horasRecrutamento">Horas Recrutamento</label>
+                  <input
+                    type="number"
+                    id="horasRecrutamento"
+                    value="20"
+                    min="0"
+                    step="1"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="horasTreinamento">Horas Treinamento</label>
+                  <input
+                    type="number"
+                    id="horasTreinamento"
+                    value="40"
+                    min="0"
+                    step="1"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="reducaoTurnover">Redução do Turnover (%)</label>
+                  <input
+                    type="number"
+                    id="reducaoTurnover"
+                    value="30"
+                    min="0"
+                    max="100"
+                    step="1"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button type="button" id="calcularBtn" class="calculate-btn">
+              <span>Calcular ROI</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2L16 8H13V14H7V8H4L10 2Z" fill="currentColor" />
+                <path d="M4 16H16V18H4V16Z" fill="currentColor" />
+              </svg>
+            </button>
+          </section>
+
+          <section class="results-section">
+            <div
+              id="resultados"
+              class="results-container"
+              style="display: none"
+            >
+              <div class="card results-card">
+                <h3>Análise de Resultados</h3>
+
+                <div class="metric-grid">
+                  <div class="metric-item">
+                    <span class="metric-label">Taxa de Turnover Anual</span>
+                    <span id="resultadoTurnover" class="metric-value">--</span>
+                  </div>
+
+                  <div class="metric-item">
+                    <span class="metric-label">Custo de UM Desligamento</span>
+                    <span id="custoUnitario" class="metric-value">--</span>
+                  </div>
+
+                  <div class="metric-item">
+                    <span class="metric-label">Custo Anual com Turnover</span>
+                    <span id="custoAnual" class="metric-value danger">--</span>
+                  </div>
+
+                  <div class="metric-item">
+                    <span class="metric-label">Economia Estimada</span>
+                    <span id="economiaEstimada" class="metric-value success"
+                      >--</span
+                    >
+                  </div>
+                </div>
+
+                <div class="roi-highlight">
+                  <div class="roi-container">
+                    <span class="roi-label">ROI do Sistema</span>
+                    <span id="roiFinal" class="roi-value">--</span>
+                  </div>
+                </div>
+
+                <div class="insights">
+                  <h4>💡 Insights</h4>
+                  <div id="insightsContent">
+                    <!-- Insights serão preenchidos dinamicamente -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2024 RH Analytics Pro. Calculadora desenvolvida com base em
+          dados do mercado brasileiro de RH.
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
