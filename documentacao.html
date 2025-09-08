@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Como os Cálculos são Feitos - Calculadora Mindsight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Pathway+Extreme:wght@300;400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ===== VARIÁVEIS CSS (Baseado no Guia de Marca Mindsight) ===== */
+      :root {
+        --mindsight-roxo: #7321e8;
+        --mindsight-preto: #000000;
+        --mindsight-branco: #ffffff;
+        --mindsight-ciano: #00c2d1;
+        --mindsight-cinza-claro: #f4f7f6;
+        --mindsight-cinza-medio: #666666;
+        --mindsight-cinza-escuro: #1b1b1b;
+        --font-principal: 'Pathway Extreme', sans-serif;
+        --font-secundaria: 'JetBrains Mono', monospace;
+        --border-radius: 12px;
+        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* ===== RESET E BASE ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-principal);
+        font-weight: 400;
+        line-height: 1.7;
+        color: var(--mindsight-cinza-escuro);
+        background: var(--mindsight-cinza-claro);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* ===== HEADER ===== */
+      header {
+        background: var(--mindsight-branco);
+        box-shadow: var(--box-shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo-img {
+        height: 40px;
+        width: auto;
+      }
+
+      .header-link {
+        font-family: var(--font-principal);
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--mindsight-roxo);
+        transition: color 0.3s ease;
+      }
+      .header-link:hover {
+        color: var(--mindsight-preto);
+      }
+
+      /* ===== MAIN CONTENT ===== */
+      main {
+        padding: 50px 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-principal);
+        font-weight: 800;
+        color: var(--mindsight-cinza-escuro);
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        border-bottom: 2px solid var(--mindsight-roxo);
+        padding-bottom: 0.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.4rem;
+        color: var(--mindsight-cinza-escuro);
+        margin-top: 2rem;
+      }
+
+      p,
+      li {
+        font-size: 1.1rem;
+        color: var(--mindsight-cinza-medio);
+      }
+
+      strong {
+        font-weight: 700;
+        color: var(--mindsight-cinza-escuro);
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      li:last-child {
+        border-bottom: none;
+      }
+
+      /* ===== FORMULA BLOCK ===== */
+      pre {
+        background: var(--mindsight-cinza-escuro);
+        color: var(--mindsight-cinza-claro);
+        font-family: var(--font-secundaria);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        margin-top: 1rem;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-size: 1rem;
+      }
+
+      code {
+        color: var(--mindsight-ciano);
+      }
+
+      .formula-wrapper {
+        background: var(--mindsight-branco);
+        padding: 1.5rem 2rem;
+        border-radius: var(--border-radius);
+        margin-top: 1rem;
+        box-shadow: var(--box-shadow);
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        background: var(--mindsight-branco);
+        color: var(--mindsight-cinza-medio);
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 50px;
+        border-top: 1px solid #eaeaea;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container header-content">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo Mindsight" class="logo-img" />
+        </a>
+        <a href="index.html" class="header-link"
+          >&larr; Voltar para a Calculadora</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <h1>Entenda a Lógica por Trás dos Cálculos</h1>
+
+        <section>
+          <h2>Dados de Entrada Utilizados</h2>
+          <p>
+            Para que a calculadora funcione, ela se baseia nos dados que você
+            fornece no formulário. Cada campo tem um papel importante:
+          </p>
+          <ul>
+            <li>
+              <strong>Salário Mensal:</strong> O salário médio de um colaborador
+              na sua empresa.
+            </li>
+            <li>
+              <strong>Total de Colaboradores:</strong> O número total de
+              funcionários registrados e ativos.
+            </li>
+            <li>
+              <strong>Total de Desligamentos:</strong> A quantidade de pessoas
+              que deixaram a empresa no último ano, voluntariamente ou
+              involuntariamente.
+            </li>
+            <li>
+              <strong>Custo do Sistema:</strong> O valor do investimento anual
+              na plataforma da Mindsight.
+            </li>
+            <li>
+              <strong>Multiplicador de Encargos:</strong> Um fator que
+              representa o custo total de um funcionário além do seu salário
+              (impostos, benefícios, etc.).
+            </li>
+            <li>
+              <strong>Custo Hora RH:</strong> O valor médio da hora de trabalho
+              da(o) profissional de RH.
+            </li>
+            <li>
+              <strong>Custo Hora Gerente:</strong> O valor médio da hora de
+              trabalho de um(a) gerente ou líder de equipe.
+            </li>
+            <li>
+              <strong>Horas Recrutamento:</strong> O total de horas que o RH
+              normalmente leva para preencher uma vaga.
+            </li>
+            <li>
+              <strong>Horas Treinamento:</strong> O total de horas que um
+              gerente leva para treinar um novo colaborador.
+            </li>
+            <li>
+              <strong>Redução do Turnover (%):</strong> O percentual de redução
+              na saída de funcionários que você estima alcançar com o sistema.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Como Cada Resultado é Calculado</h2>
+          <p>
+            Os cálculos são feitos em uma sequência lógica, onde um resultado
+            ajuda a construir o próximo.
+          </p>
+
+          <article class="formula-wrapper">
+            <h3>1. Taxa de Turnover Anual</h3>
+            <p>
+              Mede a proporção de funcionários que saíram da empresa em um ano.
+              É um termômetro da retenção de talentos.
+            </p>
+            <pre><code>(Total de Desligamentos / Total de Colaboradores) * 100</code></pre>
+          </article>
+
+          <article class="formula-wrapper">
+            <h3>2. Custo Total de UM Desligamento</h3>
+            <p>
+              Calcula o custo total para substituir um único funcionário,
+              somando os custos de recrutamento, treinamento e a perda de
+              produtividade.
+            </p>
+            <pre><code>Custo de Recrutamento + Custo de Treinamento + Custo de Desligamento</code></pre>
+          </article>
+
+          <article class="formula-wrapper">
+            <h3>3. Custo Anual com Turnover</h3>
+            <p>
+              Projeta o impacto financeiro total que a rotatividade de
+              funcionários causa na empresa ao longo de um ano inteiro.
+            </p>
+            <pre><code>Custo Total de UM Desligamento * Total de Desligamentos</code></pre>
+          </article>
+
+          <article class="formula-wrapper">
+            <h3>4. Economia Estimada com o Sistema</h3>
+            <p>
+              Mostra o valor que a empresa pode economizar ao atingir a meta de
+              redução de turnover que foi inserida no formulário.
+            </p>
+            <pre><code>Custo Anual com Turnover * (Redução do Turnover / 100)</code></pre>
+          </article>
+
+          <article class="formula-wrapper">
+            <h3>5. ROI (Retorno sobre o Investimento) do Sistema</h3>
+            <p>
+              É o indicador principal. Ele mede o retorno financeiro do
+              investimento, mostrando o lucro percentual em relação ao custo do
+              sistema.
+            </p>
+            <pre><code>((Economia Estimada - Custo do Sistema) / Custo do Sistema) * 100</code></pre>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 Mindsight. A era da gestão de pessoas integrada e
+          inteligente.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

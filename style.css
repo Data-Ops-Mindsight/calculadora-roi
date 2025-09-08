@@ -334,3 +334,22 @@ footer {
     grid-template-columns: 1.2fr 0.8fr;
   }
 }
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-link {
+  font-family: var(--font-principal);
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--mindsight-cinza-medio);
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.header-link:hover {
+  color: var(--mindsight-roxo);
+}
