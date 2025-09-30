@@ -255,12 +255,25 @@ function exibirResultados(resultados) {
   );
   elementos.roiFinal.textContent = formatarPercentual(resultados.roiSistema);
 
-  // Gera e exibe insights
   const insights = gerarInsights(resultados);
-  elementos.insightsContent.innerHTML =
-    '<ul>' +
-    insights.map((insight) => `<li>${insight}</li>`).join('') +
-    '</ul>';
+
+  // Gera e exibe insights
+  const insightsHTML = insights
+    .map((insight, index) => {
+      // Verifica se é o último item da lista
+      const isLastItem = index === insights.length - 1;
+
+      // Define o ícone: ⚠️ para o último, ✓ para os outros
+      const icon = isLastItem ? '⚠️' : '✓';
+
+      // Adiciona uma classe 'check' para o ícone de '✓' para podermos dar a cor verde
+      const iconClass = isLastItem ? 'icon' : 'icon check';
+
+      return `<li><span class="${iconClass}">${icon}</span><span>${insight}</span></li>`;
+    })
+    .join('');
+
+  elementos.insightsContent.innerHTML = `<ul>${insightsHTML}</ul>`;
 
   // Aplica cores baseadas no ROI
   const roiElement = elementos.roiFinal;

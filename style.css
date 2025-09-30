@@ -283,6 +283,7 @@ main {
 }
 
 /* ===== INSIGHTS ===== */
+/* Seus estilos para o container e título - estes estão corretos e foram mantidos */
 .insights {
   background: #f9f9f9;
   border-radius: 8px;
@@ -296,19 +297,34 @@ main {
   font-size: 1.2rem;
 }
 
-.insights li {
-  margin-bottom: 8px;
-  padding-left: 20px;
-  position: relative;
-  color: var(--mindsight-cinza-escuro);
+/* --- A PARTIR DAQUI VÊM AS CORREÇÕES --- */
+
+/* 1. Adicione esta regra para a tag <ul> para remover os estilos padrão da lista */
+.insights ul {
+  list-style-type: none; /* Remove os marcadores (bolinhas) */
+  padding-left: 0; /* Remove o recuo da lista */
+  margin: 0;
 }
 
-.insights li:before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #28a745;
-  font-weight: bold;
+/* 2. Substitua sua regra antiga ".insights li" por esta */
+.insights li {
+  display: flex; /* Essencial para alinhar o ícone e o texto */
+  align-items: flex-start; /* Alinha o ícone com o topo do texto */
+  margin-bottom: 12px; /* Um bom espaçamento entre os itens */
+  color: var(--mindsight-cinza-escuro); /* Mantém a cor do seu texto */
+  line-height: 1.5; /* Melhora a leitura */
+}
+
+/* 3. REMOVA COMPLETAMENTE a regra antiga ".insights li:before" */
+
+/* 4. Adicione estas novas regras para estilizar o ícone */
+.insights .icon {
+  margin-right: 10px; /* Cria um espaço entre o ícone e o texto */
+  font-weight: bold; /* Deixa o ícone em negrito, como no seu original */
+}
+
+.insights .icon.check {
+  color: #28a745; /* Aplica a cor verde somente ao ícone de check (✓) */
 }
 
 /* ===== FOOTER (FUNDO BRANCO) ===== */
