@@ -170,15 +170,15 @@ function gerarInsights(resultados) {
   // Insight sobre taxa de turnover
   if (resultados.taxaTurnover > 15) {
     insights.push(
-      'Sua taxa de turnover está acima da média nacional (12%). Há potencial significativo de economia.'
+      'Sua rotatividade está muito elevada. Há potencial significativo de melhoria.'
     );
   } else if (resultados.taxaTurnover > 8) {
     insights.push(
-      'Sua taxa de turnover está na média. O sistema pode ajudar a otimizar ainda mais.'
+      'Sua rotatividade está na média. O sistema pode ajudar a otimizar ainda mais.'
     );
   } else {
     insights.push(
-      'Excelente! Sua taxa de turnover está baixa. O sistema ajudará a manter essa performance.'
+      'Excelente! Sua rotatividade está baixa. O sistema ajudará a manter essa performance.'
     );
   }
 
