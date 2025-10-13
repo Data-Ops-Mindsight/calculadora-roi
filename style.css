@@ -369,3 +369,7 @@ footer {
 .header-link:hover {
   color: var(--mindsight-roxo);
 }
+
+#espacoAjuste {
+  margin-top: 20px;
+}

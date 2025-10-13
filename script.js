@@ -49,11 +49,16 @@ function formatarMoeda(valor) {
  * @returns {string} - Percentual formatado (ex: "15,50%")
  */
 function formatarPercentual(valor) {
-  return new Intl.NumberFormat('pt-BR', {
+  const options = {
     style: 'percent',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(valor / 100);
+  };
+  if (valor > 1000) {
+    options.minimumFractionDigits = 0;
+    options.maximumFractionDigits = 0;
+  }
+  return new Intl.NumberFormat('pt-BR', options).format(valor / 100);
 }
 
 /**
@@ -280,15 +285,19 @@ function exibirResultados(resultados) {
   const roiContainer = roiElement.closest('.roi-highlight');
 
   if (resultados.roiSistema > 200) {
+    // ROI Excelente: Verde mais intenso
     roiContainer.style.background =
       'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
   } else if (resultados.roiSistema > 100) {
+    // ROI Ótimo: Um verde claro e vibrante
     roiContainer.style.background =
-      'linear-gradient(135deg, #17a2b8 0%, #138496 100%)';
+      'linear-gradient(135deg, #20c997 0%, #17a2b8 100%)';
   } else if (resultados.roiSistema > 0) {
+    // ROI Positivo: Um verde mais suave para indicar retorno positivo
     roiContainer.style.background =
-      'linear-gradient(135deg, #ffc107 0%, #e0a800 100%)';
+      'linear-gradient(135deg, #90ee90 0%, #28a745 100%)'; // LightGreen -> Verde
   } else {
+    // ROI Negativo: Mantém o vermelho para indicar perda
     roiContainer.style.background =
       'linear-gradient(135deg, #dc3545 0%, #c82333 100%)';
   }
